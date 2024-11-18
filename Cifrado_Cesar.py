@@ -1,11 +1,13 @@
 def cifrado_cesar(texto, desplazamiento):
     """
     Aplica el cifrado César a un texto con un desplazamiento dado.
+    
     :param texto: Texto a cifrar.
     :param desplazamiento: Número de posiciones a desplazar en el alfabeto.
     :return: Texto cifrado.
     """
     resultado = ""
+    desplazamiento %= 26  # Normalizar el desplazamiento dentro del rango del alfabeto
     for caracter in texto:
         if caracter.isalpha():  # Solo ciframos letras
             base = ord('A') if caracter.isupper() else ord('a')
@@ -18,10 +20,12 @@ def cifrado_cesar(texto, desplazamiento):
     return resultado
 
 
-# Solicitar entrada al usuario
-palabra = input("Introduce la palabra a cifrar: ")
-desplazamiento = int(input("Introduce el desplazamiento (entero): "))
-
-# Cifrar la palabra e imprimir el resultado
-cifrado = cifrado_cesar(palabra, desplazamiento)
-print(f"Palabra cifrada: {cifrado}")
+# Solicitar entrada al usuario con manejo de excepciones
+try:
+    palabra = input("Introduce la palabra a cifrar: ")
+    desplazamiento = int(input("Introduce el desplazamiento (entero): "))
+    # Cifrar la palabra e imprimir el resultado
+    cifrado = cifrado_cesar(palabra, desplazamiento)
+    print(f"Palabra cifrada: {cifrado}")
+except ValueError:
+    print("Error: El desplazamiento debe ser un número entero.")
